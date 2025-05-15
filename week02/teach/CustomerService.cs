@@ -1,9 +1,12 @@
-﻿/// <summary>
+﻿using System.Security.Cryptography.X509Certificates;
+
+/// <summary>
 /// Maintain a Customer Service Queue.  Allows new customers to be 
 /// added and allows customers to be serviced.
 /// </summary>
 public class CustomerService {
-    public static void Run() {
+    public static void Run()
+    {
         // Example code to see what's in the customer service queue:
         // var cs = new CustomerService(10);
         // Console.WriteLine(cs);
@@ -11,9 +14,11 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
-        Console.WriteLine("Test 1");
+        // Scenario: size = 0
+        // Expected Result:  queue size = 10
+        Console.WriteLine("queue size 0");
+        var cs = new CustomerService(0);
+        Console.WriteLine(cs._maxSize);
 
         // Defect(s) Found: 
 
@@ -22,13 +27,58 @@ public class CustomerService {
         // Test 2
         // Scenario: 
         // Expected Result: 
-        Console.WriteLine("Test 2");
+        Console.WriteLine("queue negative size");
+
+        var cs2 = new CustomerService(-12);
+        Console.WriteLine(cs._maxSize);
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
 
         // Add more Test Cases As Needed Below
+
+        Console.WriteLine("Add new customer and serve him");
+
+        var cs3 = new CustomerService(8);
+
+        cs3.AddNewCustomer();
+        Console.WriteLine(cs3._queue.Count);
+        cs3.ServeCustomer();
+        Console.WriteLine(cs3._queue.Count);
+
+
+
+        Console.WriteLine("=================");
+
+
+        Console.WriteLine("Add new customer with queue full");
+
+        // var cs4 = new CustomerService(2);
+        // cs4.AddNewCustomer();
+        // cs4.AddNewCustomer();
+        // cs4.AddNewCustomer();
+
+
+
+
+
+
+        Console.WriteLine("=================");
+
+
+        Console.WriteLine("serve customer with empty queue");
+
+        var cs5 = new CustomerService(2);
+
+
+        cs5.ServeCustomer();
+
+
+        
+
+         Console.WriteLine("=================");
+
     }
 
     private readonly List<Customer> _queue = new();
@@ -67,7 +117,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count > _maxSize - 1) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +138,15 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
+        if (_queue.Count == 0)
+        {
+            Console.WriteLine("Error, Queue is empty");
+            return;
+        }
+
         var customer = _queue[0];
         Console.WriteLine(customer);
+        _queue.RemoveAt(0);
     }
 
     /// <summary>
