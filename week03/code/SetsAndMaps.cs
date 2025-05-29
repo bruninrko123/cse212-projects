@@ -230,25 +230,25 @@ public static class SetsAndMaps
         var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
         List<string> tempstr = new List<string>();
         string s = "";
-        long time;
-        bool isToday;
+        // long time;
+        // bool isToday;
         
         foreach (var feature in featureCollection.features)
         {
-            time = feature.properties.time;
-            DateTime dateTimeUtc = DateTimeOffset.FromUnixTimeMilliseconds(time).UtcDateTime;
+            // time = feature.properties.time;
+            // DateTime dateTimeUtc = DateTimeOffset.FromUnixTimeMilliseconds(time).UtcDateTime;
 
-            DateTime DateTimeLocal = dateTimeUtc.ToLocalTime();
+            // DateTime DateTimeLocal = dateTimeUtc.ToLocalTime();
 
-            DateTime today = DateTime.Now.Date;
+            // DateTime today = DateTime.Now.Date;
 
-            isToday = DateTimeLocal.Date == today;
-            if (isToday)
-            {
+            // isToday = DateTimeLocal.Date == today;
+            // if (isToday)
+            // {
             s = $"{feature.properties.place} - Mag {feature.properties.mag}";
             tempstr.Add(s);
                 
-            }
+            // }
         }
 
         string[] result = tempstr.ToArray();
