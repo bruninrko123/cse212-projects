@@ -49,5 +49,16 @@ public static class Trees
     private static void InsertMiddle(int[] sortedNumbers, int first, int last, BinarySearchTree bst)
     {
         // TODO Start Problem 5
+        
+
+        //use the first and last values to find the one in the middle. 
+        //get the value in the middle and insertt to the tree
+        //when doing recursion, pass the midle as the last of one recursive call and the middle as the beggining of the other. 
+        //doing 2 recursions at the same time. 
+
+
+        
+
+        //base case could be the lenght of the array is equal to the size of the tree
     }
 }
